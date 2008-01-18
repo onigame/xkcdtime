@@ -26,7 +26,7 @@
   style="font-family:'Comic Sans MS','Trebuchet MS','Tahoma','Geneva','sans-serif'"
 >Hm...</div></div>
 <br>
-<input type=submit id="tog" value="24-hr" onclick="tog()";>
+<input type=submit style="position:absolute;top:170;left:0;fontSize:6" id="tog" value="24-hr" onclick="tog()";>
 
 <script type="text/javascript">
 
