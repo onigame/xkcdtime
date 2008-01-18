@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs
+    title="xkcd Clock"
+    description="It's a Clock.  And a guy that factors the time."
+    author="Wei-Hwa Huang"
+    author_email="weihwa.public@gmail.com"
+    author_link="http://weihwa.feedback.googlepages.com/home"
+    title_url="http://weihwa.feedback.googlepages.com/home"
+    author_location="Mountain View, CA, USA"
+    author_affiliation="Google, Inc."
+    screenshot="http://xkcdtime.googlecode.com/files/xkcdtime-screenshot.png"
+    thumbnail="http://xkcdtime.googlecode.com/files/xkcdtime-thumbnail.png"
+  >
+    <Require feature="dynamic-height"/>
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+
+
+<a href="http://www.xkcd.com/c247.html" target="_blank">
+<img src="http://xkcdtime.googlecode.com/files/xkcdtime.jpg"
+></a>
+<div id="rof"><div id="tbl">0:00</div></div>
+<div id="rog"><div id="tal"
+  style="font-family:'Comic Sans MS','Trebuchet MS','Tahoma','Geneva','sans-serif'"
+>Hm...</div></div>
+<br>
+<input type=submit id="tog" value="24-hr" onclick="tog()";>
+
+<script type="text/javascript">
+
+_gel("rof").style.position = "absolute";
+_gel("rof").style.top = 22;
+_gel("rof").style.left = 20;
+_gel("rof").style.width = 67;
+_gel("rof").style.height = 30;
+
+_gel("tbl").style.position = "absolute";
+_gel("tbl").style.fontWeight = "bold";
+_gel("tbl").style.fontSize = "24";
+_gel("tbl").style.top = "50%";
+_gel("tbl").style.marginTop = -15;
+_gel("tbl").style.width = "100%";
+_gel("tbl").style.textAlign = "center";
+
+_gel("rog").style.position = "absolute";
+_gel("rog").style.top = 7;
+_gel("rog").style.left = 100;
+_gel("rog").style.width = 135;
+_gel("rog").style.height = 60;
+
+_gel("tal").style.position = "absolute";
+_gel("tal").style.fontWeight = "bold";
+_gel("tal").style.fontSize = "16";
+_gel("tal").style.top = "50%";
+_gel("tal").style.marginTop = -20;
+_gel("tal").style.width = "100%";
+_gel("tal").style.textAlign = "center";
+
+var tf = false;
+
+var dat = new Date();
+var hr = dat.getHours();
+var mn = dat.getMinutes();
+if (!tf) {
+  if (hr >= 12) hr -= 12;
+  if (hr == 0) hr = 12;
+}
+
+if (mn < 10) {
+  _gel("tbl").innerHTML = hr + ":0" + mn;
+} else {
+  _gel("tbl").innerHTML = hr + ":" + mn;
+}
+
+setInterval("tm()", 1000);
+
+setInterval("foo()", 2567);
+
+var nack = hr * 100 + mn;
+
+var difficulty = 0;
+function factor(num, start_ty) {
+  if (num == 0) return "Let's skip 0.";
+  var ty = start_ty;
+  while (ty * ty <= num) {
+    if (sofar == "") {
+      progress.push("Um... (" + ty + "?)");
+    } else {
+      progress.push(sofar + "... (" + ty + "?)");
+    }
+    if (Math.floor(num / ty) * ty == num) {
+      sofar += ty + "x";
+      return ty + "x" + factor(num / ty, ty);
+    }
+    if (ty == 2) ty++;
+    else ty += 2;
+    while (ty != 5 && ty % 5 == 0) ty+= 2;
+    while (ty != 3 && ty % 3 == 0) ty+= 2;
+    difficulty++;
+  }
+  return num;
+}
+
+var progress = ["Um..."];
+var sofar = "";
+var fac = factor(nack, 2);
+if (fac == nack) fac+= " is prime!";
+progress.push(fac);
+
+yah = -1;
+
+var pointer = 0;
+
+function tog() {
+  tf = !tf;
+  if (_gel("tog").value == "12-hr") {
+    _gel("tog").value = "24-hr";
+  } else {
+    _gel("tog").value = "12-hr";
+  }
+  var dat = new Date();
+  if (dat.getHours() == 0 || dat.getHours() > 12) {
+    tm();
+    progress.unshift("Hey!");
+    progress.unshift("Hey!");
+  }
+}
+
+function tm() {
+  dat = new Date();
+  hr = dat.getHours();
+  mn = dat.getMinutes();
+  if (!tf) {
+    if (hr >= 12) hr -= 12;
+    if (hr == 0) hr = 12;
+  }
+  var newnum = hr * 100 + mn;
+
+  if (newnum != nack) {
+    nack = newnum;
+
+    if (mn < 10) {
+      _gel("tbl").innerHTML = hr + ":0" + mn;
+    } else {
+      _gel("tbl").innerHTML = hr + ":" + mn;
+    }
+    progress = ["Um..."];
+    sofar = "";
+    var fac = factor(nack, 2);
+    if (fac == nack) fac+= " is prime!";
+    progress.push(fac);
+    pointer = 0;
+  }
+}
+
+function foo() {
+  if (pointer >= progress.length) pointer = 0;
+
+  if (progress[pointer].length < 8) {
+    _gel("tal").style.fontSize = "18";
+  } else if (progress[pointer].length < 13) {
+    _gel("tal").style.fontSize = "16";
+  } else if (progress[pointer].length < 18) {
+    _gel("tal").style.fontSize = "14";
+  } else if (progress[pointer].length < 21) {
+    _gel("tal").style.fontSize = "12";
+  } else {
+    _gel("tal").style.fontSize = "10";
+  }
+
+  _gel("tal").innerHTML = progress[pointer];
+  if (pointer+1 < progress.length) pointer++;
+}
+
+</script>
+
+    ]]>
+  </Content>
+</Module>
+
