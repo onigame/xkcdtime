@@ -9,10 +9,10 @@
     title_url="http://weihwa.feedback.googlepages.com/home"
     author_location="Mountain View, CA, USA"
     author_affiliation="Google, Inc."
+    height="200"
     screenshot="http://xkcdtime.googlecode.com/files/xkcdtime-screenshot.png"
     thumbnail="http://xkcdtime.googlecode.com/files/xkcdtime-thumbnail.png"
   >
-    <Require feature="dynamic-height"/>
   </ModulePrefs>
   <UserPref name="hours" display_name="Start out as 24-hour clock"
             datatype="bool"
