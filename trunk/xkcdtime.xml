@@ -90,6 +90,7 @@ var nack = hr * 100 + mn;
 var difficulty = 0;
 function factor(num, start_ty) {
   if (num == 0) return "Let's skip 0.";
+  if (num == 0) return "1 is prime!  Wait, no.";
   var ty = start_ty;
   while (ty * ty <= num) {
     if (sofar == "") {
