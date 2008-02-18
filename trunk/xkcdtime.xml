@@ -14,6 +14,10 @@
   >
     <Require feature="dynamic-height"/>
   </ModulePrefs>
+  <UserPref name="hours" display_name="Start out as 24-hour clock"
+            datatype="bool"
+            default_value="false">
+  </UserPref>
   <Content type="html">
     <![CDATA[
 
@@ -29,6 +33,8 @@
 <input type=submit style="position:absolute;top:170;left:0;fontSize:6" id="tog" value="24-hr" onclick="tog()";>
 
 <script type="text/javascript">
+
+var prefs = new _IG_Prefs();
 
 _gel("rof").style.position = "absolute";
 _gel("rof").style.top = 22;
@@ -58,7 +64,7 @@ _gel("tal").style.marginTop = -20;
 _gel("tal").style.width = "100%";
 _gel("tal").style.textAlign = "center";
 
-var tf = false;
+var tf = prefs.getBool("hours");
 
 var dat = new Date();
 var hr = dat.getHours();
