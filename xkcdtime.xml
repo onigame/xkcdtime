@@ -65,6 +65,7 @@ _gel("tal").style.width = "100%";
 _gel("tal").style.textAlign = "center";
 
 var tf = prefs.getBool("hours");
+_gel("tog").value = tf ? "12-hr" : "24-hr";
 
 var dat = new Date();
 var hr = dat.getHours();
